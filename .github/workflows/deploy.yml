@@ -1,0 +1,23 @@
+name: 自動デプロイ・エンジン
+on:
+  issues:
+    types: [opened] # Issueが起票(opened)されたら起動する
+
+jobs:
+  deploy_process:
+    name: デプロイ実行ジョブ
+    runs-on: ubuntu-latest
+    steps:
+      - name: 1. 依頼内容の確認と受付
+        run: |
+          echo "📥 デプロイ依頼を受信しました：${{ github.event.issue.title }}"
+          echo "🤖 システムが自動でデプロイ処理を開始します..."
+
+      - name: 2. 本番環境への反映処理（シミュレーション）
+        # 15秒間待機し、Actionsタブで実行中であることを全員で観察します
+        run: sleep 15
+
+      - name: 3. 全てのデプロイ工程が完了
+        run: |
+          echo "✅ デプロイが正常に終了しました！"
+          echo "🌐 修正内容が本番環境へ反映され、ユーザーが利用可能な状態です。"
